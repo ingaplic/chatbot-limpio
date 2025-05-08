@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { Configuration, OpenAIApi } = require('openai');
+require('dotenv').config(); // ← importante
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -14,7 +15,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-app.post('/chatbot', async (req, res) => {
+app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
 
   const prompt = `
