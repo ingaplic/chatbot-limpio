@@ -35,10 +35,11 @@ Duda del colaborador: ${userMessage}
 
     const reply = completion.choices[0].message.content;
     res.json({ response: reply });
-  } catch (error) {
-    console.error('Error al llamar a la API de OpenAI:', error);
-    res.status(500).json({ response: 'Error al generar respuesta.' });
-  }
+ } catch (error) {
+  console.error('Error al llamar a la API de OpenAI:', error.response?.data || error.message || error);
+  res.status(500).json({ response: 'Error al generar respuesta.' });
+}
+
 });
 
 app.listen(port, () => {
